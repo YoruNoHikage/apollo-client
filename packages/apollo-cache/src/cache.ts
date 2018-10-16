@@ -70,6 +70,10 @@ export abstract class ApolloCache<TSerialized> implements DataProxy {
     options: DataProxy.Query<TVariables>,
     optimistic: boolean = false,
   ): QueryType | null {
+    if (!options.query) {
+      console.error('You called readQuery but forgot to specify the `query` key.');
+    }
+      
     return this.read({
       query: options.query,
       variables: options.variables,
